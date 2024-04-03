@@ -1,18 +1,16 @@
-# node-monitoring
+# slinky-monitoring
 
-A monitoring solution for node runners and validators utilizing docker containers with [Prometheus](https://prometheus.io/), [Grafana](http://grafana.org/),
-[Tenderduty](https://github.com/blockpane/tenderduty), [cAdvisor](https://github.com/google/cadvisor), [NodeExporter](https://github.com/prometheus/node_exporter), 
-and alerting with [AlertManager](https://github.com/prometheus/alertmanager). 
+A monitoring solution for node runners and validators utilizing docker containers with [Prometheus](https://prometheus.io/), [Grafana](http://grafana.org/), [NodeExporter](https://github.com/prometheus/node_exporter), and alerting with [AlertManager](https://github.com/prometheus/alertmanager). 
 
-This is intended to be a single-stop solution for monitoring your blockchain validator signing state.
+This is intended to be a single-stop solution for monitoring your Slinky signing needs.
 
 ## Install
 
-Clone this repository on your Docker host, cd into node-monitoring directory and run compose up:
+Clone this repository on your Docker host, cd into slinky-monitoring directory and run compose up:
 
 ```bash
-git clone https://github.com/LavenderFive/node-monitoring
-cd node-monitoring
+git clone https://github.com/LavenderFive/slinky-monitoring
+cd slinky-monitoring
 
 docker-compose up -d
 ```
@@ -27,40 +25,30 @@ Prerequisites:
 Containers:
 
 * Prometheus (metrics database) `http://<host-ip>:9090`
-* Prometheus-Pushgateway (push acceptor for ephemeral and batch jobs) `http://<host-ip>:9091`
 * AlertManager (alerts management) `http://<host-ip>:9093`
 * Alertmanager-discord (disabled by default) `http://<host-ip>:9094`
 * Grafana (visualize metrics) `http://<host-ip>:3000`
   * Infinity Plugin
 * NodeExporter (host metrics collector)
-* cAdvisor (containers metrics collector)
 * Caddy (reverse proxy and basic auth provider for prometheus and alertmanager)
-* Tenderduty (Cosmos node monitoring solution)
-* Peggo Prometheus Exporter (Peggo monitoring solution)
 
 ## TL;DR: Steps
 ```
 1. cp .env.sample .env
------ Peggo -----
-1. rename .env/ORCHESTRATOR_ADDRESS to your orchestrator
-1. under alertmanager/config.yml add your Pagerduty integration/service key
--- IF YOU'RE JUST USING THIS FOR PEGGO, SKIP TO STEP 6! --
------ Tenderduty -----
-1. under tenderduty/config.yml add your validator/endpoint information
 ----- Caddy ------
 1. under caddy/Caddyfile:
 1. replace YOUR_WEBSITE.COM with your website
 1. replace YOUR_EMAIL@EMAIL.COM with your email
 1. point your dns to your monitoring server
 -----------------
-1. cd ~/node-monitoring
+1. cd ~/slinky-monitoring
 1. docker compose up -d
 ```
 
 ## Setup Grafana
 
 ### Grafana  Dashboard
-This monitoring solution comes built in with a *very basic* Peggo Monitoring dashboard, 
+This monitoring solution comes built in with a Slinky Monitoring dashboard, 
 which works out of the box. Grafana, Prometheus, and Infinity are installed 
 automatically.
 
@@ -104,7 +92,7 @@ Grafana is preconfigured with dashboards and Prometheus as the default data sour
 
 ***Monitor Services Dashboard***
 
-![Monitor Services](https://raw.githubusercontent.com/LavenderFive/node-monitoring/master/screens/Grafana_Prometheus.png)
+![Monitor Services](https://raw.githubusercontent.com/LavenderFive/slinky-monitoring/master/screens/Grafana_Prometheus.png)
 
 The Monitor Services Dashboard shows key metrics for monitoring the containers that make up the monitoring stack:
 
@@ -119,10 +107,10 @@ The Monitor Services Dashboard shows key metrics for monitoring the containers t
 
 ## Define alerts
 
-Two alert groups have been setup within the [alert.rules](https://github.com/LavenderFive/node-monitoring/blob/master/prometheus/alert.rules) configuration file:
+Two alert groups have been setup within the [alert.rules](https://github.com/LavenderFive/slinky-monitoring/blob/master/prometheus/alert.rules) configuration file:
 
-* Monitoring services alerts [targets](https://github.com/LavenderFive/node-monitoring/blob/master/prometheus/alert.rules#L13-L22)
-* Peggo alerts [peggo](https://github.com/LavenderFive/node-monitoring/blob/master/prometheus/alert.rules#L2-L11)
+* Monitoring services alerts [targets](https://github.com/LavenderFive/slinky-monitoring/blob/master/prometheus/alert.rules#L13-L22)
+* Peggo alerts [peggo](https://github.com/LavenderFive/slinky-monitoring/blob/master/prometheus/alert.rules#L2-L11)
 
 You can modify the alert rules and reload them by making a HTTP POST call to Prometheus:
 
@@ -145,23 +133,6 @@ Trigger an alert if any of the monitoring targets (node-exporter and cAdvisor) a
       description: "Service {{ $labels.instance }} is down."
 ```
 
-***Peggo alerts***
-
-Trigger an alert if Peggo isn't catching up, AND it's more than 5 nonce behind the network
-
-```yaml
-- name: peggo_alerts
-  rules:
-  - alert: HighNonceDifference
-    expr: abs(peggo_network_nonce - peggo_orchestrator_nonce) > 5 and increase(peggo_orchestrator_nonce[1h]) <= 0
-    for: 15m
-    labels:
-      severity: critical
-    annotations:
-      summary: "High difference between peggo_orchestrator_nonce and peggo_network_nonce"
-      description: "The difference between peggo_orchestrator_nonce and peggo_network_nonce has been greater than 5 for more than 15 minutes."
-```
-
 
 ## Setup alerting
 
@@ -171,7 +142,7 @@ A complete list of integrations can be found [here](https://prometheus.io/docs/a
 
 You can view and silence notifications by accessing `http://<host-ip>:9093`.
 
-The notification receivers can be configured in [alertmanager/config.yml](https://github.com/LavenderFive/node-monitoring/blob/master/alertmanager/config.yml) file.
+The notification receivers can be configured in [alertmanager/config.yml](https://github.com/LavenderFive/slinky-monitoring/blob/master/alertmanager/config.yml) file.
 
 To receive alerts via Slack you need to make a custom integration by choose ***incoming web hooks*** in your Slack team app page.
 You can find more details on setting up Slack integration [here](http://www.robustperception.io/using-slack-with-the-alertmanager/).
@@ -192,4 +163,4 @@ receivers:
             api_url: 'https://hooks.slack.com/services/<webhook-id>'
 ```
 
-![Slack Notifications](https://raw.githubusercontent.com/LavenderFive/node-monitoring/master/screens/Slack_Notifications.png)
+![Slack Notifications](https://raw.githubusercontent.com/LavenderFive/slinky-monitoring/master/screens/Slack_Notifications.png)
