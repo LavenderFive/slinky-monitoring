@@ -48,6 +48,24 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
+  slinky:
+    image: ghcr.io/skip-mev/slinky-sidecar:v0.3.1
+    container_name: slinky
+    volumes:
+      - ./slinky:/etc/slinky
+    entrypoint: [
+      "slinky", 
+      "--oracle-config-path", "/etc/slinky/oracle.json", 
+      # "--market-config-path", "/oracle/market.json", 
+      "--pprof-port", "6060", 
+      "--run-pprof",
+      ]
+    restart: unless-stopped
+    networks:
+      - monitor-net
+    labels:
+      org.label-schema.group: "monitoring"
+
   nodeexporter:
     image: prom/node-exporter:v1.3.1
     container_name: nodeexporter
