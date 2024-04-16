@@ -11,20 +11,14 @@ Clone this repository on your Docker host, cd into slinky-monitoring directory a
 ```bash
 git clone https://github.com/LavenderFive/slinky-monitoring
 cd slinky-monitoring
-
 docker-compose up -d
 ```
 
-## Generate Slinky Config
-```
-docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:latest -c "slinky-config --chain dydx --node-http-url localhost:1317 --oracle-config-path /slinky/oracle.json"
-```
-
 ## TL;DR: Steps
-```
+```sh
 1. cp .env.sample .env
 ----- Slinky -----
-1. export NODE_URL=localhost:1317 #enter your own node url here
+1. export NODE_URL=localhost:1317 # Enter your own node url here
 1. docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:latest -c "slinky-config --chain dydx --node-http-url $NODE_URL --oracle-config-path /slinky/oracle.json"
 ----- Caddy ------
 1. under caddy/Caddyfile:
@@ -34,6 +28,14 @@ docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/sl
 -----------------
 1. cd ~/slinky-monitoring
 1. docker compose up -d
+```
+
+## Generate Slinky Config
+This command will create the Slinky oracle.json config file under `~/slinky/`. Unless you are running this repo
+on the same server as the node, you will want to change the `NODE_URL` from localhost.
+```sh
+export NODE_URL=localhost:1317 # Enter your own node url here
+docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:latest -c "slinky-config --chain dydx --node-http-url $NODE_URL --oracle-config-path /slinky/oracle.json"
 ```
 
 ## Setup Grafana
