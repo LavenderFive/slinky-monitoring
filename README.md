@@ -2,27 +2,19 @@
 
 A monitoring solution for node runners and validators utilizing docker containers with [Prometheus](https://prometheus.io/), [Grafana](http://grafana.org/), [NodeExporter](https://github.com/prometheus/node_exporter), and alerting with [AlertManager](https://github.com/prometheus/alertmanager). 
 
-This is intended to be a single-stop solution for monitoring your Slinky signing needs.
+This is intended to be a single-stop solution for monitoring your Slinky Side Car needs.
 
-## Install
+## TL;DR: Steps
 
 Clone this repository on your Docker host, cd into slinky-monitoring directory and run compose up:
 
 ```bash
 git clone https://github.com/LavenderFive/slinky-monitoring
 cd slinky-monitoring
+cp .env.sample .env
+export NODE_URL=localhost:1317 # Enter your own node url here
+docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:latest -c "slinky-config --chain dydx --node-http-url $NODE_URL --oracle-config-path /slinky/oracle.json"
 docker-compose up -d
-```
-
-## TL;DR: Steps
-```sh
-1. cp .env.sample .env
------ Slinky -----
-1. export NODE_URL=localhost:1317 # Enter your own node url here
-1. docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:latest -c "slinky-config --chain dydx --node-http-url $NODE_URL --oracle-config-path /slinky/oracle.json"
------------------
-1. cd ~/slinky-monitoring
-1. docker compose up -d
 ```
 
 ## Generate Slinky Config
