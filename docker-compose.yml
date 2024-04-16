@@ -62,6 +62,7 @@ services:
       ]
     restart: unless-stopped
     expose:
+      - 8080
       - 8002
     networks:
       - monitor-net

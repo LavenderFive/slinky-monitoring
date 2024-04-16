@@ -29,6 +29,10 @@
     reverse_proxy pushgateway:9091
 }
 
+:8080 {
+    reverse_proxy slinky:8080
+}
+
 :80 {
     reverse_proxy grafana:3000
 }
