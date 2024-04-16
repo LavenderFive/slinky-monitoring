@@ -40,12 +40,6 @@ This monitoring solution comes built in with a Slinky Monitoring dashboard,
 which works out of the box. Grafana, Prometheus, and Infinity are installed 
 automatically.
 
-#### 1. Create Persistent Storage
-To support persistent storage, you'll first need to create the volume:
-```
-docker volume create grafana-storage && docker volume create prometheus_data
-```
-
 ---
 
 Navigate to `http://<host-ip>:3000` and login with user ***admin*** password ***admin***. You can change the credentials in the compose file or by supplying the `ADMIN_USER` and `ADMIN_PASSWORD` environment variables on compose up. The config file can be added directly in grafana part like this
