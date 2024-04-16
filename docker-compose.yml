@@ -61,6 +61,8 @@ services:
       "--run-pprof",
       ]
     restart: unless-stopped
+    expose:
+      - 8002
     networks:
       - monitor-net
     labels:
