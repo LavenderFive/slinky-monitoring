@@ -23,6 +23,9 @@ docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/sl
 ## TL;DR: Steps
 ```
 1. cp .env.sample .env
+----- Slinky -----
+1. export NODE_URL=localhost:1317 #enter your own node url here
+1. docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:latest -c "slinky-config --chain dydx --node-http-url $NODE_URL --oracle-config-path /slinky/oracle.json"
 ----- Caddy ------
 1. under caddy/Caddyfile:
 1. replace YOUR_WEBSITE.COM with your website
