@@ -11,6 +11,16 @@ volumes:
     grafana-storage: {}
 
 services:
+  downloader:
+    image: alpine:latest
+    env_file:
+      - '.env'
+    command: sh -c "apk add --no-cache curl && curl -o /tmp/slinky_dashboard.json ${DASHBOARD_URL}"
+    volumes:
+      - ./grafana/dashboards:/tmp  # Mount host directory to store downloaded file
+    networks:
+      - monitor-net
+
   prometheus:
     image: prom/prometheus:v2.48.0
     container_name: prometheus
@@ -107,6 +117,9 @@ services:
       - 3000
     networks:
       - monitor-net
+    depends_on:
+      downloader:
+        condition: service_healthy
     labels:
       org.label-schema.group: "monitoring"
 
