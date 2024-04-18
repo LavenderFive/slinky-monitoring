@@ -101,14 +101,16 @@ services:
       org.label-schema.group: "monitoring"
 
   grafana:
-    image: grafana/grafana:9.0.5
+    image: grafana/grafana:10.4.0
+    depends_on:
+      - downloader
     env_file:
       - '.env'
     container_name: grafana
     volumes:
+      - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
-      # - grafana-storage:/var/lib/grafana
     restart: unless-stopped
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
@@ -118,8 +120,6 @@ services:
       - 3000
     networks:
       - monitor-net
-    depends_on:
-      - downloader
     labels:
       org.label-schema.group: "monitoring"
 
