@@ -5,10 +5,10 @@ networks:
     driver: bridge
 
 volumes:
-    prometheus_data: {}
-    grafana_data: {}
-    caddy_data: {}
-    grafana-storage: {}
+  prometheus_data: {}
+  grafana_data: {}
+  caddy_data: {}
+  grafana-storage: {}
 
 services:
   downloader:
@@ -18,7 +18,7 @@ services:
       - '.env'
     command: sh -c "apk add --no-cache curl && curl -o /tmp/slinky_dashboard.json ${DASHBOARD_URL}"
     volumes:
-      - ./grafana/dashboards:/tmp  # Mount host directory to store downloaded file
+      - ./grafana/provisioning/dashboards:/tmp  # Mount host directory to store downloaded file
     networks:
       - monitor-net
 
