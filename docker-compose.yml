@@ -12,6 +12,7 @@ volumes:
 
 services:
   downloader:
+    container_name: dashboard_downloader
     image: alpine:latest
     env_file:
       - '.env'
@@ -118,8 +119,7 @@ services:
     networks:
       - monitor-net
     depends_on:
-      downloader:
-        condition: service_healthy
+      - downloader
     labels:
       org.label-schema.group: "monitoring"
 

@@ -1,3 +1,4 @@
 .env
 .DS_Store
 slinky/*
+grafana/dashboards/slinky_dashboard.json

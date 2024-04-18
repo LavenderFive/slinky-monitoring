@@ -21,10 +21,12 @@ scrape_configs:
     static_configs:
       - targets: ['prometheus:9090']
 
-  - job_name: 'slinky'
+  - job_name: 'dydx'
     scrape_interval: 10s
     static_configs:
-      - targets: ['slinky:8002']
+      - targets: 
+        - slinky:8002
+        - 5.0.5.1:23861
 
 alerting:
   alertmanagers:
