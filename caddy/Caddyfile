@@ -24,14 +24,6 @@
     reverse_proxy alertmanager:9093
 }
 
-:8080 {
-    reverse_proxy slinky:8080
-}
-
-:8002 {
-    reverse_proxy slinky:8002
-}
-
 :80 {
     reverse_proxy grafana:3000
 }
