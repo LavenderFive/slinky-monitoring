@@ -101,7 +101,7 @@ services:
       org.label-schema.group: "monitoring"
 
   grafana:
-    image: grafana/grafana:10.4.0
+    image: grafana/grafana:10.4.2
     depends_on:
       - downloader
     env_file:
