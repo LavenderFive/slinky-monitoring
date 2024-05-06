@@ -61,11 +61,56 @@ Slinky supports the addition of state-RPCs to gather data directly from Solana a
 
 For each RPC URL, you will need an API key unique to your validator. To get this, go to the dYdX validator slack channel (which you should already be invited to once you make it into the active set), and request API keys from Helius, Polkachu, KingNodes, LavenderFive, and RhinoStake. Each of these are necessary to load into your config so your decentralized providers can work properly.
 
-Once you have your 5 API keys, head to oracle.json and configure endpoint(s) for each provider.
+Once you have your 5 API keys, head to `slinky-monitoring/slinky/oracle.json` and configure endpoint(s) for each provider.
 
-Then you must fill in your API keys. You should use the URLs listed below, and ask on the Slack #ext-dydx-validators-discussion or #v-dydx-private-testnet-discussion channels: for API keys to fill in below.
+Then you must fill in your API keys. You should use the URLs listed below, and ask on the Slack `#ext-dydx-validators-discussion` or `#v-dydx-private-testnet-discussion` channels: for API keys to fill in below.
 
 More information can be found [here](https://docs.skip.money/slinky/integrations/dydx/).
+
+```json
+{
+   "name": "raydium_api",
+   "api": {
+      "endpoints": [
+        {
+          "url": "https://solana.polkachu.com"
+          "authentication: {
+              "apiKey": "X-Api-Key",
+              "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
+          }
+        },
+        {
+          "url": "https://slinky-solana.kingnodes.com"
+          "authentication: {
+              "apiKey": "X-Api-Key",
+              "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
+          }
+        },
+        {
+          "url": "https://solana.lavenderfive.com"
+          "authentication: {
+              "apiKey": "X-Api-Key",
+              "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
+          }
+        },
+        {
+          "url": "https://solana-rpc.rhino-apis.com"
+          "authentication: {
+              "apiKey": "X-Api-Key",
+              "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
+          }
+        },
+        {
+          "url": "https://dydx.helius-rpc.com"
+          "authentication: {
+              "apiKey": "X-Api-Key",
+              "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
+          }
+        }
+      ]
+   }
+}
+```
 
 ## Setup Grafana
 
