@@ -24,13 +24,12 @@
     reverse_proxy alertmanager:9093
 }
 
-:9091 {
-    import basic-auth    
-    reverse_proxy pushgateway:9091
-}
-
 :8080 {
     reverse_proxy slinky:8080
+}
+
+:8002 {
+    reverse_proxy slinky:8002
 }
 
 :80 {

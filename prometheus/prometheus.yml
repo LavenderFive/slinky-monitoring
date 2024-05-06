@@ -26,7 +26,8 @@ scrape_configs:
     static_configs:
       - targets: 
         - slinky:8002
-        - 5.0.5.1:23861
+        - <YOUR_IP>:8002
+        - <YOUR_IP>:23861
 
 alerting:
   alertmanagers:

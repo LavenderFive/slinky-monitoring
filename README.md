@@ -12,8 +12,11 @@ Clone this repository on your Docker host, cd into slinky-monitoring directory a
 git clone https://github.com/LavenderFive/slinky-monitoring
 cd slinky-monitoring
 cp .env.sample .env
-export NODE_URL=localhost:1317 # Enter your own node url here
-docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:latest -c "slinky-config --chain dydx --node-http-url $NODE_URL --oracle-config-path /slinky/oracle.json"
+export NODE_URL=http://localhost:1317 # Enter your own node url here
+docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:v0.4.1 -c "slinky-config --chain dydx \
+--node-http-url $NODE_URL --raydium-enabled --solana-node-endpoint \
+https://solana.polkachu.com,https://slinky-solana.kingnodes.com,https://solana.lavenderfive.com,https://solana-rpc.rhino-apis.com,https://dydx.helius-rpc.com \
+--oracle-config-path /slinky/oracle.json"
 docker-compose up -d
 ```
 

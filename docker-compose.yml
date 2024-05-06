@@ -60,7 +60,7 @@ services:
       org.label-schema.group: "monitoring"
 
   slinky:
-    image: ghcr.io/skip-mev/slinky-sidecar:v0.3.2
+    image: ghcr.io/skip-mev/slinky-sidecar:v0.4.1
     container_name: slinky
     volumes:
       - ./slinky:/etc/slinky
@@ -68,8 +68,8 @@ services:
       "slinky", 
       "--oracle-config-path", "/etc/slinky/oracle.json", 
       # "--market-config-path", "/oracle/market.json", 
-      "--pprof-port", "6060", 
-      "--run-pprof",
+      # "--pprof-port", "6060", 
+      # "--run-pprof",
       ]
     restart: unless-stopped
     expose:
@@ -132,9 +132,10 @@ services:
       - "443:443/udp"
       - "3000:3000"
       - "3100:3100"
+      - "8080:8080"
+      - "8002:8002"
       - "9090:9090"
       - "9093:9093"
-      - "9091:9091"
     volumes:
       - ./caddy:/etc/caddy
       - caddy_data:/data
