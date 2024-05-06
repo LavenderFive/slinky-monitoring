@@ -36,7 +36,7 @@ cp .env.sample .env
 ```
 
 ### Generate Slinky oracle.json
-This command will create the Slinky oracle.json config file under `~/slinky/`. Unless you are running this repo
+This command will create the Slinky oracle.json config file under `~/slinky-monitoring/slinky`. Unless you are running this repo
 on the same server as the node, you will want to change the `NODE_URL` from localhost.
 
 ```sh
