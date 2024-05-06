@@ -74,35 +74,35 @@ More information can be found [here](https://docs.skip.money/slinky/integrations
       "endpoints": [
         {
           "url": "https://solana.polkachu.com"
-          "authentication: {
+          "authentication": {
               "apiKey": "X-Api-Key",
               "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
           }
         },
         {
           "url": "https://slinky-solana.kingnodes.com"
-          "authentication: {
+          "authentication": {
               "apiKey": "X-Api-Key",
               "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
           }
         },
         {
           "url": "https://solana.lavenderfive.com"
-          "authentication: {
+          "authentication": {
               "apiKey": "X-Api-Key",
               "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
           }
         },
         {
           "url": "https://solana-rpc.rhino-apis.com"
-          "authentication: {
+          "authentication": {
               "apiKey": "X-Api-Key",
               "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
           }
         },
         {
           "url": "https://dydx.helius-rpc.com"
-          "authentication: {
+          "authentication": {
               "apiKey": "X-Api-Key",
               "apiKeyHeader": "API KEY YOU'VE RETRIEVED FROM SLACK"
           }
