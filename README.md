@@ -17,15 +17,43 @@ docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/sl
 --node-http-url $NODE_URL --raydium-enabled --solana-node-endpoint \
 https://solana.polkachu.com,https://slinky-solana.kingnodes.com,https://solana.lavenderfive.com,https://solana-rpc.rhino-apis.com,https://dydx.helius-rpc.com \
 --oracle-config-path /slinky/oracle.json"
+sed -i '' "s/<YOUR_IP>/${NODE_URL}/g" prometheus/prometheus.yml
 docker-compose up -d
 ```
 
-## Generate Slinky Config
+## Setup Slinky
+### Clone slinky-monitoring
+
+```sh
+git clone https://github.com/LavenderFive/slinky-monitoring
+cd slinky-monitoring
+```
+
+### Copy .env file
+The `.env` file has very basic settings for logins, etc.
+```sh
+cp .env.sample .env
+```
+
+### Generate Slinky oracle.json
 This command will create the Slinky oracle.json config file under `~/slinky/`. Unless you are running this repo
 on the same server as the node, you will want to change the `NODE_URL` from localhost.
+
 ```sh
+cd ~/slinky-monitoring
 export NODE_URL=localhost:1317 # Enter your own node url here
-docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:latest -c "slinky-config --chain dydx --node-http-url $NODE_URL --oracle-config-path /slinky/oracle.json"
+docker run -it --rm --entrypoint sh -v $(pwd)/slinky:/slinky ghcr.io/skip-mev/slinky-sidecar:v0.4.1 -c "slinky-config --chain dydx \
+--node-http-url $NODE_URL --raydium-enabled --solana-node-endpoint \
+https://solana.polkachu.com,https://slinky-solana.kingnodes.com,https://solana.lavenderfive.com,https://solana-rpc.rhino-apis.com,https://dydx.helius-rpc.com \
+--oracle-config-path /slinky/oracle.json"
+```
+
+### Edit Prometheus.yml
+The following will set your IP address in `prometheus.yml`. **If you are using non-standard daemon prometheus metrics port, `26660`, you will need to modify `prometheus/prometheus.yml`.**
+
+```sh
+cd ~/slinky-monitoring
+sed -i '' "s/<YOUR_IP>/${NODE_URL}/g" prometheus/prometheus.yml
 ```
 
 ## Setup Grafana
