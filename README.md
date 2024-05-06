@@ -56,6 +56,17 @@ cd ~/slinky-monitoring
 sed -i '' "s/<YOUR_IP>/${NODE_URL}/g" prometheus/prometheus.yml
 ```
 
+### Add API Keys 
+Slinky supports the addition of state-RPCs to gather data directly from Solana and EVM chains. The Skip and dYdX team have already set up relationships and pre-paid for API endpoints you can use to get this data.
+
+For each RPC URL, you will need an API key unique to your validator. To get this, go to the dYdX validator slack channel (which you should already be invited to once you make it into the active set), and request API keys from Helius, Polkachu, KingNodes, LavenderFive, and RhinoStake. Each of these are necessary to load into your config so your decentralized providers can work properly.
+
+Once you have your 5 API keys, head to oracle.json and configure endpoint(s) for each provider.
+
+Then you must fill in your API keys. You should use the URLs listed below, and ask on the Slack #ext-dydx-validators-discussion or #v-dydx-private-testnet-discussion channels: for API keys to fill in below.
+
+More information can be found [here](https://docs.skip.money/slinky/integrations/dydx/).
+
 ## Setup Grafana
 
 ### Grafana  Dashboard
